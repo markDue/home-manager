@@ -1,0 +1,287 @@
+###________________________________________/
+
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+
+set $wallpaper /mnt/storage/pictures/106009.jpg
+set $log-wallpaper $(find $HOME/Pictures/ -name \*variety\* -print -quit) 
+#seat seat0 xcursor_theme Breeze 24 
+
+# Your preferred terminal emulator
+set $term kitty 
+set $back_term foot
+# Your preferred application launcher
+# Note: pass the final command to swaymsg so that the resulting window can be opened
+# on the original workspace that the command was run on.
+set $fileBrowser  thunar
+set $swaylock swaylock -i $log-wallpaper -s fill 
+set $wlogout wlogout
+set $rofi rofi -show drun -sidebar-mode
+set $wofi wofi --show drun -I
+set $tofi tofi-drun
+#set $dmenu  dmenu_path | dmenu | xargs swaymsg exec --
+set $dmenu dmenu_run -nb '#333333' -sb '#ff00f2' -sf '#e2eeea' -p dmenu -fn 'liberation sans'
+
+# Start your launcher
+  bindsym $mod+Return exec $tofi
+  bindsym $mod+Shift+Return exec $rofi
+  bindsym Alt+Return  exec $back_term
+  bindsym $mod+Shift+Escape exec $wlogout
+  bindsym $mod+Escape exec $swaylock
+  bindsym $mod+p exec $dmenu
+  bindsym Alt+Shift+Return exec $fileBrowser
+  bindsym $mod+o exec killall -SIGUSR1 waybar
+
+### Output configuration
+#
+
+# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+#output DP-3 resolution bg "/home/marc/Pictures/backgrounds/stars.jpg" fill
+#output HDMI-A-1 resolution 1440x900 position 1920,0
+
+#
+# Display configuration:
+#output HDMI-A-1 disable
+#output HDMI-A-1 mode 1920x1080@60Hz position 0,0 adaptive_sync on
+output DP-3 mode 1440x900@59.887Hz position 0,0 adaptive_sync on
+output "*" {
+    background $wallpaper fill
+#    resolution 1440x900
+}
+
+#
+# You can get the names of your outputs by running: swaymsg -t get_outputs
+
+### Idle configuration
+#
+# Example configuration:
+#
+ exec swayidle -w \
+          timeout 500 'swaylock -f -i $log-wallpaper -s fill' \
+          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+          before-sleep 'swaylock -f -i $log-wallpaper -s fill'
+#
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
+
+### Input configuration
+#
+# Example configuration:
+#
+#   input "2:14:SynPS/2_Synaptics_TouchPad" {
+#       dwt enabled
+#       tap enabled
+#       natural_scroll enabled
+#       middle_emulation enabled }
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Read `man 5 sway-input` for more information about this section.
+
+### Key bindings
+#
+# Basics:
+#
+    # Start a terminal
+    bindsym control+Return exec $term
+
+    # Kill focused window
+    bindsym $mod+backspace kill
+
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+    floating_modifier $mod normal
+
+    # Reload the configuration file
+    bindsym Control+Shift+r reload
+
+    # Exit sway (logs you out of your Wayland session)
+    #bindsym Control+Shift+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+    bindsym Control+Shift+q exit 
+#
+# Moving around:
+#
+    # Move your focus around
+    bindsym $mod+$left focus left
+    bindsym $mod+$down focus down
+    bindsym $mod+$up focus up
+    bindsym $mod+$right focus right
+    # Or use $mod+[up|down|left|right]
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+
+    # Move the focused window with the same, but add Shift
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
+    # Ditto, with arrow keys
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+#
+# Workspaces:
+#
+    # Switch to workspace
+    bindsym $mod+1 workspace number 1 ONE 
+    bindsym $mod+2 workspace number 2 TWO 
+    bindsym $mod+3 workspace number 3 THREE 
+    bindsym $mod+4 workspace number 4 FOUR 
+    bindsym $mod+5 workspace number 5 FIVE  
+    bindsym $mod+6 workspace number 6 SEX 
+    bindsym $mod+7 workspace number 7 SEVEN 
+    bindsym $mod+8 workspace number 8 EIGHT 
+    bindsym $mod+9 workspace number 9 NINE 
+    # move focused container to workspace
+    bindsym $mod+Shift+1 move container to workspace 1 ONE 
+    bindsym $mod+Shift+2 move container to workspace 2 TWO
+    bindsym $mod+Shift+3 move container to workspace 3 THREE
+    bindsym $mod+Shift+4 move container to workspace 4 FOUR
+    bindsym $mod+Shift+5 move container to workspace 5 FIVE
+    bindsym $mod+Shift+6 move container to workspace 6 SIX
+    bindsym $mod+Shift+7 move container to workspace 7 SEVEN
+    bindsym $mod+Shift+8 move container to workspace 8 EIGHT
+    bindsym $mod+Shift+9 move container to workspace 9 NINE
+    # Note: workspaces can have any name you want, not just numbers.
+    # We just use 1-10 as the default.
+
+    bindsym $mod+BracketLeft workspace prev_on_output
+    bindsym $mod+BracketRight workspace next_on_output
+#
+# Layout stuff:
+#
+    # You can "split" the current object of your focus with
+    # $mod+b or $mod+v, for horizontal and vertical splits
+    # respectively.
+    bindsym $mod+b splith
+    bindsym $mod+v splitv
+
+    # Switch the current container between different layout styles
+    bindsym $mod+s layout stacking
+    bindsym $mod+w layout tabbed
+    bindsym $mod+e layout toggle split
+    
+    # Default layout on startup
+    workspace_layout tabbed
+
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+Shift+space floating toggle
+
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+space focus mode_toggle
+
+    # Move focus to the parent container
+    bindsym $mod+a focus parent
+#
+# Scratchpad:
+#
+
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+minus scratchpad show
+#
+# Resizing containers:
+#
+mode "resize" {
+    # left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    # Ditto, with arrow keys
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+####################################
+
+focus_follows_mouse no
+font CodeNewRomanNerdFontMono 14px 
+font CaskaydiaMono 14px
+titlebar_border_thickness 2
+titlebar_padding 2
+
+for_window [title="Variety"] floating enable
+for_window [title="super-productivity"] floating enable
+
+exec_always {
+    wl-paste -t text --watch clipman store --no-persist ;
+    variety ;
+    nm-applet;
+    #joplin-desktop ;
+    "/usr/libexec/kf6/polkit-kde-authentication-agent-1" ;
+    mako ;
+#    kanshi ;
+    #pkill kanshi; kanshi;
+    #exec polkit-gnome 
+    #exec polkit-kde-agent  dbus-launch --sh-syntax --exit-with-session sway
+    #exec_always swaybg -i /mnt/library/pictures/new-pool/akrivec_slovenia.jpg
+    #exec_always swaybg -i $wallpaper
+    #exec_always "/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1" &
+}
+
+# Gaps
+gaps inner 0
+gaps outer 0
+default_border pixel 3 
+
+# keybindings
+input "type:keyboard" {
+          xkb_layout us,fr,ara
+          xkb_options grp:alt_space_toggle
+          #xkb_options caps:escape,
+}
+
+bar {
+  swaybar_command waybar 
+  #status_command i3blocks $HOME/.config/sway/i3blocks.sh
+  position top
+  height 18
+  strip_workspace_numbers yes
+  separator_symbol " " 
+	#font FantasqueSansMNerdFont 11
+	#wrap_scroll no
+	#tray_bindsym button[1-9]|click ContextMenu|
+  #tray_bindsym BTN_RIGHT ContextMenu 
+  #tray_bindcode 1 ContextMenu
+  icon_theme Papirus-Light
+  colors {
+    background #dadada
+    statusline #333333
+  }
+  hidden_state hide
+  mode dock 
+  modifier Mod4
+}
+
+include /etc/sway/config.d/*
